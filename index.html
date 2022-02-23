@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student BMI Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="Jscript.js"></script>
+</head>
+
+<body class="container">
+
+<section id="user_input">
+    <form id="input_form">
+        <div class="row">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-md-6 col-s-12">
+                        <label for="stdnt_name" class="form-label">Name:</label>
+                        <input type="text" name="name" value="" id="stdnt_name" class="form-control">
+                        <label id="alert_name" style="color: red"></label>
+                    </div>
+                    <div class="col-md-6 col-s-12">
+                        <label for="stdnt_size" class="form-label">Student size</label>
+                        <select name="size" id="stdnt_size" class="form-select">
+                            <option value="0">Small</option>
+                            <option value="1">Medium</option>
+                            <option value="2">Large</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-s-12">
+                        <label for="stdnt_feet" class="form-label">Height</label>
+                        <input type="number" name="heightFt" value="" id="stdnt_feet" class="form-control" placeholder="Feet">
+                        <label id="alert_feet" style="color: red"></label>
+                    </div>
+                    <div class="col-md-4 col-s-12">
+                        <label for="stdnt_inch" class="form-label" id="invis_letter">this text is invisible</label>
+                        <input type="number" name="heightIt" value="" id="stdnt_inch" class="form-control" placeholder="Inches">
+                        <label id="alert_inches" style="color: red"></label>
+                    </div>
+                    <div class="col-md-4 col-s-12">
+                        <label for="stdnt_weight" class="form-label">Weight(lb)</label>
+                        <input type="number" name="weight" value="" id="stdnt_weight" class="form-control" >
+                        <label id="alert_weight" style="color: red"></label>
+                    </div>
+                </div>
+                <div style="margin-top: 2rem;" class="d-flex justify-content-center">
+                    <input type="button" value="Add" class="btn btn-primary col-lg-5" onclick="addStudent()">
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
+
+<section id="cal_weight">
+    <div style="font-size: x-large; margin:1% 5%">
+        <p>Total weight:&nbsp;</p>
+        <p id="total_weight">0lb</p>
+    </div>
+</section>
+
+<section id="show_item_list">
+    <div style="font-size: x-large; margin:1% 5%">
+        <div class="d-flex justify-content-between">
+            <div>
+                <div>Student List</div>
+            </div>
+            <div>
+                <label class="form-label" for="weight">Sort by</label>
+                <input class="form-check-input" type="radio" id="weight" name="sort_by" value="weight" checked="checked"
+                       onclick="showList()">
+                <label class="form-label" for="weight">Weight</label>
+                <input class="form-check-input" type="radio" id="size" name="sort_by" value="weight"
+                       onclick="showList()">
+                <label class="form-label" for="size">Size</label>
+            </div>
+        </div>
+        <ul id="stdnt_list" class="list-group">
+            <li class="list-group-item">items show here</li>
+        </ul>
+    </div>
+</section>
+</body>
+</html>
