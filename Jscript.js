@@ -34,12 +34,12 @@ function addStudent() {
         "year": docYear,
         "BMI": (weight / ((feet * 12) + inch)),
     };
-    if (newStdnt.name.length <= 3) {
-        document.getElementById("alert_name").innerText = "name must have at least 4 characters";
+    if (newStdnt.name.length <= 1) {
+        document.getElementById("alert_name").innerText = "name must not be empty";
         return;
     }
     if (newStdnt.weight < 50) {
-        document.getElementById("alert_weight").innerText = "Please input weight between 1 and 10";
+        document.getElementById("alert_weight").innerText = "Please input greater";
         return;
     }
     console.log(newStdnt)
