@@ -1,8 +1,24 @@
 const stdnt_array = []
 
+function myRound(input){
+    let myNum = input*10;
+    Math.round(myNum);
+    return myNum/10;
+}
+
 function clearText() {
     document.getElementById("alert_weight").innerText = "";
     document.getElementById("alert_name").innerText = "";
+    document.getElementById("alert_feet").innerText = "";
+    document.getElementById("alert_inches").innerText = "";
+}
+
+function clearInput(){
+    document.getElementById("stdnt_name").value = "";
+    document.getElementById("stdnt_inch").value = "";
+    document.getElementById("stdnt_feet").value = "";
+    document.getElementById("stdnt_year").value = 0;
+    document.getElementById("stdnt_weight").value = "";
 }
 
 function addStudent() {
@@ -10,17 +26,17 @@ function addStudent() {
     let weight = 0;
     let inch = 0;
     let feet = 0;
-    const docWeight = document.getElementById("stdnt_weight").value
-    const docFeet = document.getElementById("stdnt_feet").value
-    const docInch = document.getElementById("stdnt_inch").value
-    const docYear = parseInt(document.getElementById("stdnt_year").value)
+    const docWeight = document.getElementById("stdnt_weight").value;
+    const docFeet = document.getElementById("stdnt_feet").value;
+    const docInch = document.getElementById("stdnt_inch").value;
+    const docYear = parseInt(document.getElementById("stdnt_year").value);
     if (docWeight.length > 0) {
         weight = parseInt(docWeight);
     }
-    if (docWeight.length > 0) {
+    if (docInch.length > 0) {
         inch = parseInt(docInch);
     }
-    if (docWeight.length > 0) {
+    if (docFeet.length > 0) {
         feet = parseInt(docFeet);
     }
 
@@ -34,15 +50,23 @@ function addStudent() {
         "year": docYear,
         "BMI": (weight / ((feet * 12) + inch)),
     };
-    if (newStdnt.name.length <= 1) {
+    if (newStdnt.name.length < 1) {
         document.getElementById("alert_name").innerText = "name must not be empty";
         return;
     }
-    if (newStdnt.weight < 50) {
-        document.getElementById("alert_weight").innerText = "Please input greater";
+    if (newStdnt.heightFt <= 0) {
+        document.getElementById("alert_feet").innerText = "height must greater than 0";
         return;
     }
-    console.log(newStdnt)
+    if (newStdnt.heightIn <= 0 || newStdnt.heightIn > 11) {
+        document.getElementById("alert_inches").innerText = "height must greater than 0 and less than 12";
+        return;
+    }
+    if (newStdnt.weight < 50) {
+        document.getElementById("alert_weight").innerText = "weight must be greater than 50";
+        return;
+    }
+    clearInput();
     stdnt_array.push(newStdnt);
     showList();
 }
@@ -64,8 +88,8 @@ function showList() {
                 });
             }
         }
-        const stdnt_ulist = document.getElementById("stdnt_list")
-        const htmlWeight = document.getElementById("BMI average")
+        const stdnt_ulist = document.getElementById("stdnt_list");
+        const htmlWeight = document.getElementById("BMI average");
         stdnt_ulist.innerHTML = "";
         let totalBMI = 0;
         htmlWeight.innerText = totalBMI;
@@ -77,7 +101,7 @@ function showList() {
             li.className = "list-group-item"
             stdnt_ulist.appendChild(li)
         });
-        htmlWeight.innerText = (totalBMI / stdnt_array.length)
+        htmlWeight.innerText = myRound(totalBMI / stdnt_array.length);
         // for(let i =0; i<stdnt_array.length; i++){
         //     console.log(itemToString(stdnt_array[i]))
         // }
@@ -92,9 +116,20 @@ function showList() {
 }
 
 function itemToString(stdnt) {
-    return stdnt.name + "\t" + stdnt.heightFt + "ft\t" + stdnt.heightIn + "in\t" + stdnt.weight + "lb\t" + stdnt.BMI + "\t" + yearToString(stdnt.year);
+    return stdnt.name + ",\t"+ yearToString(stdnt.year) + ",\t" + stdnt.heightFt + "ft " + stdnt.heightIn + "in,\t" + stdnt.weight + "lb,\t" + myRound(stdnt.BMI) + "(BMI)\t";
 }
 
 function yearToString(year) {
-    return "Year " + (year + 1)
+    switch(year) {
+        case 0:
+            return "Freshman"
+        case 1:
+            return "Sophomore"
+        case 2:
+            return "Junior"
+        case 3:
+            return "Senior"
+        default:
+            break;
+    }
 }
