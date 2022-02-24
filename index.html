@@ -26,8 +26,8 @@
                         <label id="alert_name" style="color: red"></label>
                     </div>
                     <div class="col-md-6 col-s-12">
-                        <label for="stdnt_size" class="form-label">Student size</label>
-                        <select name="size" id="stdnt_size" class="form-select">
+                        <label for="stdnt_year" class="form-label">Student year</label>
+                        <select name="year" id="stdnt_year" class="form-select">
                             <option value="0">1st Year</option>
                             <option value="1">2nd Year</option>
                             <option value="2">3rd Year</option>
@@ -69,13 +69,16 @@
                 <div>Student List</div>
             </div>
             <div>
-                <label class="form-label" for="weight">Sort by</label>
-                <input class="form-check-input" type="radio" id="weight" name="sort_by" value="weight" checked="checked"
+                <label class="form-label" for="year">Sort by</label>
+                <input class="form-check-input" type="radio" id="year" name="sort_by" value="height" checked="checked"
                        onclick="showList()">
-                <label class="form-label" for="weight">Weight</label>
-                <input class="form-check-input" type="radio" id="size" name="sort_by" value="weight"
+                <label class="form-label" for="year">Year</label>
+                <input class="form-check-input" type="radio" id="height" name="sort_by" value="height"
                        onclick="showList()">
-                <label class="form-label" for="size">Size</label>
+                <label class="form-label" for="height">Height</label>
+                <input class="form-check-input" type="radio" id="BMI" name="sort_by" value="height"
+                       onclick="showList()">
+                <label class="form-label" for="BMI">BMI</label>
             </div>
         </div>
         <ul id="stdnt_list" class="list-group">

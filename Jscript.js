@@ -12,7 +12,8 @@ function addStudent() {
     let feet = 0;
     const docWeight = document.getElementById("stdnt_weight").value
     const docFeet = document.getElementById("stdnt_feet").value
-    const docInch =document.getElementById("stdnt_inch").value
+    const docInch = document.getElementById("stdnt_inch").value
+    const docYear = parseInt(document.getElementById("stdnt_year").value)
     if (docWeight.length > 0) {
         weight = parseInt(docWeight);
     }
@@ -23,48 +24,60 @@ function addStudent() {
         feet = parseInt(docFeet);
     }
 
-const newStdnt = {
+
+    const newStdnt = {
         "name": document.getElementById("stdnt_name").value,
         "weight": weight,
-        "height": docFeet*12 + docInch,
+        "heightFt": feet,
+        "heightIn": inch,
+        "comboHeight": ((feet * 12) + inch),
+        "year": docYear,
+        "BMI": (weight / ((feet * 12) + inch)),
     };
     if (newStdnt.name.length <= 3) {
         document.getElementById("alert_name").innerText = "name must have at least 4 characters";
         return;
     }
-    if (newStdnt.weight < 1 || newStdnt.weight > 10) {
+    if (newStdnt.weight < 50) {
         document.getElementById("alert_weight").innerText = "Please input weight between 1 and 10";
         return;
     }
+    console.log(newStdnt)
     stdnt_array.push(newStdnt);
     showList();
 }
 
 function showList() {
     if (stdnt_array.length > 0) {
-        if (document.getElementById("weight").checked) {
+        if (document.getElementById("year").checked) {
             stdnt_array.sort((a, b) => {
-                return a.weight - b.weight
+                return a.year - b.year
             });
         } else {
-            stdnt_array.sort((a, b) => {
-                return a.size - b.size
-            });
+            if (document.getElementById("height").checked) {
+                stdnt_array.sort((a, b) => {
+                    return b.comboHeight - a.comboHeight
+                });
+            } else {
+                stdnt_array.sort((a, b) => {
+                    return a.BMI - b.BMI
+                });
+            }
         }
         const stdnt_ulist = document.getElementById("stdnt_list")
-        const htmlWeight = document.getElementById("total_weight")
+        const htmlWeight = document.getElementById("BMI average")
         stdnt_ulist.innerHTML = "";
-        let totalWeight = 0;
-        htmlWeight.innerText = totalWeight + " lb";
+        let totalBMI = 0;
+        htmlWeight.innerText = totalBMI;
         stdnt_array.forEach(stdnt => {
-            totalWeight += stdnt.weight;
+            totalBMI += stdnt.BMI;
             //stdnt_ulist.innerHTML += "<li class=\"list-group-item\">"+(itemToString(stdnt))+"</li>";
             const li = document.createElement("li")
             li.innerText = itemToString(stdnt)
-            li.className="list-group-item"
+            li.className = "list-group-item"
             stdnt_ulist.appendChild(li)
         });
-        htmlWeight.innerText = totalWeight + "lb"
+        htmlWeight.innerText = (totalBMI / stdnt_array.length)
         // for(let i =0; i<stdnt_array.length; i++){
         //     console.log(itemToString(stdnt_array[i]))
         // }
@@ -79,15 +92,9 @@ function showList() {
 }
 
 function itemToString(stdnt) {
-    return stdnt.name + "\t" + stdnt.weight + "lb\t" + sizeToString(stdnt.size);
+    return stdnt.name + "\t" + stdnt.heightFt + "ft\t" + stdnt.heightIn + "in\t" + stdnt.weight + "lb\t" + stdnt.BMI + "\t" + yearToString(stdnt.year);
 }
 
-function sizeToString(size) {
-    if (size === 0) {
-        return "Small"
-    } else if (size === 1) {
-        return "Medium"
-    } else if (size === 2) {
-        return "Large"
-    }
+function yearToString(year) {
+    return "Year " + (year + 1)
 }
